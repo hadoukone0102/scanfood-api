@@ -1,0 +1,13 @@
+{
+    "Auth": true,
+    "Restaurant": true,
+    "Menu": true,
+    "Order": true,
+    "Payment": true,
+    "QrCode": true,
+    "Notification": true,
+    "Review": true,
+    "Analytics": true,
+    "Subscription": true,
+    "Admin": true
+}
