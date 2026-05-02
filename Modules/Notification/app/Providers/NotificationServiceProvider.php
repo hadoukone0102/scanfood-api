@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Notification\Providers;
+namespace Modules\Notification\app\Providers;
 
 use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;

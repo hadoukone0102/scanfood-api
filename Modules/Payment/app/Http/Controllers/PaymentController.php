@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Payment\Http\Controllers;
+namespace Modules\Payment\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

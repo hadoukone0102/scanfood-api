@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Restaurant\Database\Seeders;
+namespace Modules\Restaurant\database\seeders;
 
 use Illuminate\Database\Seeder;
 

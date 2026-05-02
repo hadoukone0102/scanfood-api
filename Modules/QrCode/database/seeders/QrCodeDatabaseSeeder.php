@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\QrCode\Database\Seeders;
+namespace Modules\QrCode\database\seeders;
 
 use Illuminate\Database\Seeder;
 

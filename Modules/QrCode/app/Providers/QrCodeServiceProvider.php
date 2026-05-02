@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\QrCode\Providers;
+namespace Modules\QrCode\app\Providers;
 
 use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Payment\Providers;
+namespace Modules\Payment\app\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

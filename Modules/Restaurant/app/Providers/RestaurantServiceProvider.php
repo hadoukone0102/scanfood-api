@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Restaurant\Providers;
+namespace Modules\Restaurant\app\Providers;
 
 use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;

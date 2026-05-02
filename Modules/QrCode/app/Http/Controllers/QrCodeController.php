@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\QrCode\Http\Controllers;
+namespace Modules\QrCode\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
