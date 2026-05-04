@@ -1,16 +1,17 @@
 <?php
 
-namespace Modules\Auth\database\seeders;
+namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AuthDatabaseSeeder extends Seeder
+class AccountSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // $this->call([]);
+        //
     }
 }
