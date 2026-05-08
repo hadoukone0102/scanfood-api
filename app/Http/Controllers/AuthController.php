@@ -2,35 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Resources\AccountResource;
 use App\Models\Account;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    //
-    public function register(StoreAccountRequest $request)
+    public function register(StoreAccountRequest $request): JsonResponse
     {
-        $account = Account::create($request->validated());
+        $data = $request->validated();
 
-        $token = $account->createToken('auth_token')->plainTextToken;
+        // Gérer l'upload avatar si présent
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        $account = Account::create($data);
+        $token   = $account->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'success'      => true,
+            'message'      => 'Inscription réussie.',
             'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $account
+            'token_type'   => 'Bearer',
+            'user'         => new AccountResource($account),
         ], 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
         $account = Account::where('email', $request->email)->first();
 
         if (! $account || ! Hash::check($request->password, $account->password)) {
@@ -39,20 +44,32 @@ class AuthController extends Controller
             ]);
         }
 
+        $token = $account->createToken('auth_token')->plainTextToken;
+
         return response()->json([
-            'access_token' => $account->createToken('auth_token')->plainTextToken,
-            'token_type' => 'Bearer',
+            'success'      => true,
+            'message'      => 'Connexion réussie.',
+            'access_token' => $token,
+            'token_type'   => 'Bearer',
+            'user'         => new AccountResource($account),
         ]);
     }
 
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
-        return response()->json($request->user());
+        return response()->json([
+            'success' => true,
+            'data'    => new AccountResource($request->user()),
+        ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Déconnexion réussie']);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Déconnexion réussie.',
+        ]);
     }
 }
