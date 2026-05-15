@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Types_user extends Model
+class Permissions extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["labelle","description"];
-    protected $tableName = "types_users";
+    protected $fillable = ["code","desc"];
+    protected $table = "permissions";
 }
