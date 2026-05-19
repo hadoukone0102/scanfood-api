@@ -2,29 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorepermsRequest;
+use App\Http\Requests\UpdatepermsRequest;
+use App\Http\Resources\PermsResouce;
 use App\Http\Services\ResponseService;
-use App\Models\Permissions;
-use App\Http\Requests\StorePermissionsRequest;
-use App\Http\Requests\UpdatePermissionsRequest;
-use PermsResouce;
+use App\Models\Perm;
 
-class PermissionsController extends Controller
+class PermsController extends Controller
 {
     public function index()
     {
-        $liste_perms = Permissions::all();
-        return ResponseService::success("Liste des permissions",$liste_perms);
+        $liste_perms = Perm::all();
+        return ResponseService::success(
+            "Liste des permissions",
+            PermsResouce::collection($liste_perms)
+        );
     }
 
-    public function store(StorePermissionsRequest $request)
+    public function store(StorepermsRequest $request)
     {
         $perm = $request->validated();
-        $action = Permissions::create($perm);
+        $action = Perm::create($perm);
         if(!$action) return ResponseService::validationError($action);
         return ResponseService::success("Permission créer avec succès",$action);
     }
 
-    public function show(Permissions $permissions)
+    public function show(Perm $permissions)
     {
         $perm = new PermsResouce($permissions);
         return ResponseService::success("Permission récupérer avec succès",$perm);
@@ -33,7 +36,7 @@ class PermissionsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePermissionsRequest $request, Permissions $permissions)
+    public function update(UpdatepermsRequest $request, Perm $permissions)
     {
         //
     }
@@ -41,7 +44,7 @@ class PermissionsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Permissions $permissions)
+    public function destroy(Perm $permissions)
     {
         //
     }
