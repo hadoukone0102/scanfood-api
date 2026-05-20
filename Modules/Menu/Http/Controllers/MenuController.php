@@ -5,7 +5,7 @@ namespace Modules\Menu\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RepasController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
