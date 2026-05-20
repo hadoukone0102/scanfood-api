@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 class Account extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\AccountFactory> */
-    use HasFactory , HasApiTokens, Notifiable, SoftDeletes;
+    use HasFactory , HasApiTokens, Notifiable, SoftDeletes,HasUuids;
 
     protected $fillable = [
         'name',
