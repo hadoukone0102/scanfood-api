@@ -6,19 +6,29 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TypeMenuRequest extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     */
-    public function rules(): array
-    {
-        return [];
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function rules(): array
+    {
+        if ($this->isMethod('POST')) {
+            return [
+                'label' => ['required', 'string', 'max:255'],
+            ];
+        }
+
+        return [
+            'label' => ['sometimes', 'required', 'string', 'max:255'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'label.required' => 'Le label du type de menu est obligatoire.',
+            'label.max'      => 'Le label ne peut pas dépasser 255 caractères.',
+        ];
     }
 }

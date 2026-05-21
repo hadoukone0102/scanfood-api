@@ -3,54 +3,65 @@
 namespace Modules\Menu\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Modules\Menu\Http\Requests\TypeMenuRequest;
+use Modules\Menu\Models\TypeMenu;
 class TypeMenuController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Liste tous les types de menu
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return view('menu::index');
+        $typeMenus = TypeMenu::latest()->paginate(15);
+
+        return response()->json($typeMenus);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Créer un type de menu
      */
-    public function create()
+    public function store(TypeMenuRequest $request): JsonResponse
     {
-        return view('menu::create');
+        $typeMenu = TypeMenu::create($request->validated());
+
+        return response()->json([
+            'message' => 'Type de menu créé avec succès',
+            'data'    => $typeMenu
+        ], Response::HTTP_CREATED);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Afficher un type de menu
      */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function show(TypeMenu $typeMenu): JsonResponse
     {
-        return view('menu::show');
+        return response()->json($typeMenu);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Modifier un type de menu
      */
-    public function edit($id)
+    public function update(TypeMenuRequest $request, TypeMenu $typeMenu): JsonResponse
     {
-        return view('menu::edit');
+        $typeMenu->update($request->validated());
+
+        return response()->json([
+            'message' => 'Type de menu modifié avec succès',
+            'data'    => $typeMenu->fresh()
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Supprimer un type de menu
      */
-    public function update(Request $request, $id) {}
+    public function destroy(TypeMenu $typeMenu): JsonResponse
+    {
+        $typeMenu->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
+        return response()->json([
+            'message' => 'Type de menu supprimé avec succès'
+        ]);
+    }
 }
