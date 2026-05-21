@@ -29,9 +29,9 @@ return new class extends Migration
         $table->decimal('price', 10, 2);
 
         $table->string('photo')->nullable();
+        $table->string('photo_public_id')->nullable();
 
-        $table->boolean('status')->default(true);
-
+        $table->string('status')->default('actif'); 
         $table->integer('preparation_time');
 
         $table->timestamps();

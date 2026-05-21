@@ -5,6 +5,8 @@ namespace Modules\Menu\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Menu\Models\Repas;
+use Modules\Menu\Models\TypeMenu;
+
 // use Modules\Menu\Database\Factories\MenuFactory;
 
 class Menu extends Model
@@ -21,9 +23,16 @@ class Menu extends Model
     'account_id',
     'price',
     'photo',
+    'photo_public_id',
     'status',
     'preparation_time'
 ];
+
+
+ public function typeMenu()
+    {
+        return $this->belongsTo(TypeMenu::class);
+    }
 
 public function repas()
 {
