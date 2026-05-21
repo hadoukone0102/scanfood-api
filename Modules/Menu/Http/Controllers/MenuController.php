@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Modules\Menu\Http\Requests\MenuRequest;
 use Modules\Menu\Models\Menu;
+use Modules\Menu\Models\Repas;
 class MenuController extends Controller
 {
     /**
@@ -94,4 +95,43 @@ class MenuController extends Controller
             'message' => 'Menu supprimé avec succès'
         ]);
     }
+
+
+    /**
+ * Lister les repas d'un menu
+ */
+public function getRepas(Menu $menu): JsonResponse
+{
+    return response()->json($menu->repas);
+}
+
+/**
+ * Ajouter des repas à un menu
+ */
+public function addRepas(Request $request, Menu $menu): JsonResponse
+{
+    $request->validate([
+        'repas_ids'   => ['required', 'array'],
+        'repas_ids.*' => ['integer', 'exists:repas,id'],
+    ]);
+
+    $menu->repas()->syncWithoutDetaching($request->repas_ids);
+
+    return response()->json([
+        'message' => 'Repas ajoutés au menu avec succès',
+        'data'    => $menu->repas
+    ]);
+}
+
+/**
+ * Retirer un repas d'un menu
+ */
+public function removeRepas(Menu $menu, Repas $repas): JsonResponse
+{
+    $menu->repas()->detach($repas->id);
+
+    return response()->json([
+        'message' => 'Repas retiré du menu avec succès'
+    ]);
+}
 }
