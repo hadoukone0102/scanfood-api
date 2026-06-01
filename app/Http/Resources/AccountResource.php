@@ -15,8 +15,8 @@ class AccountResource extends JsonResource
             'phone'      => $this->phone,
             'role'       => $this->role,
             'avatar_url' => $this->avatar
-                                ? asset('storage/' . $this->avatar)
-                                : null,
+                ? asset('storage/' . $this->avatar)
+                : null,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }

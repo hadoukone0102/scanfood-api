@@ -17,7 +17,6 @@ class AuthController extends Controller
     {
         $data = $request->validated();
 
-        // Gérer l'upload avatar si présent
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
         }
@@ -38,7 +37,7 @@ class AuthController extends Controller
     {
         $account = Account::where('email', $request->email)->first();
 
-        if (! $account || ! Hash::check($request->password, $account->password)) {
+        if (!$account || ! Hash::check($request->password, $account->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Les identifiants sont incorrects.'],
             ]);
