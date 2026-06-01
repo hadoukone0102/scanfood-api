@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Modules\Menu\Http\Requests\MenuRequest;
 use Modules\Menu\Models\Menu;
 use Modules\Menu\Models\Repas;
+
 class MenuController extends Controller
 {
     /**
